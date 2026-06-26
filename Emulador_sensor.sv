@@ -17,13 +17,25 @@ module sensor #(
     
 
     logic [2:0] bit_idx; 
-
+    
     // --- 1. Inicialização dos Sensores ---
+    //always_ff @(posedge clock or negedge reset) begin   
+    //    if (!reset) begin
+    //        for (int i = 0; i < REG_COUNT; i++) begin
+    //            regs[i] <= $random; // Removida a seed fixa para evitar falhas de compilação
+    //        end
+    //    end
+    //end
+    
+    // --- 1. Inicialização dos Sensores (SINTETIZÁVEL) ---
     always_ff @(posedge clock or negedge reset) begin   
         if (!reset) begin
-            for (int i = 0; i < REG_COUNT; i++) begin
-                regs[i] <= $random; // Removida a seed fixa para evitar falhas de compilação
-            end
+            // Atribui valores fixos com base no SENSOR_ID. 
+            // O padrão de bits vai ficar bem visível nos LEDs!
+            regs[0] <= 8'hAA + SENSOR_ID; // Ex: 10101010
+            regs[1] <= 8'hBB + SENSOR_ID; // Ex: 10111011
+            regs[2] <= 8'hCC + SENSOR_ID; // Ex: 11001100
+            regs[3] <= 8'hDD + SENSOR_ID; // Ex: 11011101
         end
     end
 
