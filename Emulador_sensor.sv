@@ -27,11 +27,9 @@ module sensor #(
     //    end
     //end
     
-    // --- 1. Inicialização dos Sensores (SINTETIZÁVEL) ---
+    // --- 1. Inicialização dos Sensores ---
     always_ff @(posedge clock or negedge reset) begin   
         if (!reset) begin
-            // Atribui valores fixos com base no SENSOR_ID. 
-            // O padrão de bits vai ficar bem visível nos LEDs!
             regs[0] <= 8'hAA + SENSOR_ID; // Ex: 10101010
             regs[1] <= 8'hBB + SENSOR_ID; // Ex: 10111011
             regs[2] <= 8'hCC + SENSOR_ID; // Ex: 11001100
